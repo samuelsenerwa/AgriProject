@@ -19,6 +19,7 @@
         android:paddingTop="5dp"
         android:layout_below="@+id/experts"
         android:divider="#32CD32"
+        android:dividerHeight="2dp"
         android:id="@+id/eList"
         />
 
