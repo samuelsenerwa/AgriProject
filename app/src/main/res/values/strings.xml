@@ -2,4 +2,6 @@
     <string name="app_name">Agri Project</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">Milking Goats Using Technology</string>
+    <string name="content">Milking parlour across the globe being transformed into labor-saving system that utilizes modern technology... </string>
 </resources>
