@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "214537941992",
+    "firebase_url": "https://agriproject-4138d-default-rtdb.firebaseio.com",
+    "project_id": "agriproject-4138d",
+    "storage_bucket": "agriproject-4138d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:214537941992:android:fd9976185e6d9f423c2a5d",
+        "android_client_info": {
+          "package_name": "com.agesadev.agriproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "214537941992-99221ac5ipj3smikgou3n2oppmqa7mmj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0giEHpxmiLONNIvzKHzObfPvYaqIi3qU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "214537941992-99221ac5ipj3smikgou3n2oppmqa7mmj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

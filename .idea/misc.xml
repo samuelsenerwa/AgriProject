@@ -13,10 +13,16 @@
         <entry key="..\:/Users/Agesa/Documents/workspace/projects/AgriProject/app/src/main/res/layout/fragment_home.xml" value="0.2540792540792541" />
         <entry key="..\:/Users/Agesa/Documents/workspace/projects/AgriProject/app/src/main/res/layout/fragment_tips.xml" value="0.2" />
         <entry key="..\:/Users/Agesa/Documents/workspace/projects/AgriProject/app/src/main/res/menu/bottom_menu.xml" value="0.2" />
+        <entry key="..\:/Users/nyamw/AndroidStudioProjects/AgriProject/app/src/main/res/drawable/ic_outline_home_24.xml" value="0.1595" />
         <entry key="..\:/Users/nyamw/AndroidStudioProjects/AgriProject/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/nyamw/AndroidStudioProjects/AgriProject/app/src/main/res/layout/fragment_experts.xml" value="0.25" />
         <entry key="..\:/Users/nyamw/AndroidStudioProjects/AgriProject/app/src/main/res/layout/fragment_home.xml" value="0.1" />
-        <entry key="..\:/Users/nyamw/AndroidStudioProjects/AgriProject/app/src/main/res/layout/list_view.xml" value="0.5" />
+        <entry key="..\:/Users/nyamw/AndroidStudioProjects/AgriProject/app/src/main/res/layout/fragment_tips.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/nyamw/AndroidStudioProjects/AgriProject/app/src/main/res/layout/list_view.xml" value="0.33" />
+        <entry key="..\:/Users/nyamw/AndroidStudioProjects/AgriProject2/app/src/main/res/drawable/divider.xml" value="0.1595" />
+        <entry key="..\:/Users/nyamw/AndroidStudioProjects/AgriProject2/app/src/main/res/layout/divider" value="0.22447916666666667" />
+        <entry key="..\:/Users/nyamw/AndroidStudioProjects/AgriProject2/app/src/main/res/layout/fragment_experts.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/nyamw/AndroidStudioProjects/AgriProject2/app/src/main/res/layout/list_view.xml" value="0.33" />
       </map>
     </option>
   </component>

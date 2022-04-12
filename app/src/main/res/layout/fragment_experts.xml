@@ -11,16 +11,20 @@
         android:layout_height="wrap_content"
         android:id="@+id/experts"
         android:paddingBottom="5dp"
+        android:gravity="center"
         android:text="experts" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/eList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="5dp"
         android:layout_below="@+id/experts"
         android:divider="#32CD32"
         android:dividerHeight="2dp"
-        android:id="@+id/eList"
+        android:paddingTop="5dp"
         />
+
+
+
 
 </RelativeLayout>

@@ -1,40 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:padding="15dp"
     >
 
-    <ImageView
-        android:id="@+id/dp"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
 
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/dp"
-        android:layout_marginLeft="20dp"
-        android:text="expert's name"
-        android:id="@+id/eName"
-        style="@style/TextAppearance.AppCompat.Title"
+        android:orientation="vertical"
 
-        />
+        >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/dp"
-        android:layout_below="@+id/eName"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:text="expert's contact"
-        android:id="@+id/eContact"
-        style="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
+        <TextView
+            android:id="@+id/n"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dp"
+            android:text="NAME: "
+            android:paddingLeft="15dp"
 
-        />
+
+            />
+
+        <TextView
+            android:id="@+id/c"
+            style="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dp"
+            android:text="CONTACT: "
+            android:layout_below="@+id/n"
+            android:layout_marginTop="10dp"
+
+            />
+
+
+            />
+
+
+        <TextView
+            android:id="@+id/eName"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/n"
+            android:text="expert's name"
+
+            />
+
+        <TextView
+            android:id="@+id/region"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@+id/eName"
+            android:gravity="center"
+            android:text="expert's region"
+
+            />
+
+        <TextView
+            android:id="@+id/eContact"
+            style="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/eName"
+            android:layout_toRightOf="@+id/c"
+            android:layout_marginTop="10dp"
+
+            android:text="expert's contact"
+
+            />
+
+    </RelativeLayout>
 
 
 
