@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="10dp"
+    android:id="@+id/singleHomeCard"
     app:cardCornerRadius="10dp"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"

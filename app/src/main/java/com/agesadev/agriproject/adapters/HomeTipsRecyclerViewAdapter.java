@@ -6,8 +6,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.agesadev.agriproject.R;
 import com.agesadev.agriproject.model.TipsModel;
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
@@ -58,8 +62,22 @@ public class HomeTipsRecyclerViewAdapter extends RecyclerView.Adapter<HomeTipsRe
                     .transition(withCrossFade())
                     .into(holder.recommendationImage);
         }
+        holder.singleHomTipCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, tipsModel.getTitle(), Toast.LENGTH_SHORT).show();
+//              display the bottom sheet dialog with url to open the webview
+                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
+                View view = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_tips_layout, null);
+                WebView homeWebView = view.findViewById(R.id.tipsWebView);
+                homeWebView.loadUrl(tipsModel.getLink());
+                bottomSheetDialog.setContentView(view);
+                bottomSheetDialog.show();
 
+            }
+        });
     }
+
 
     @Override
     public int getItemCount() {
@@ -73,6 +91,7 @@ public class HomeTipsRecyclerViewAdapter extends RecyclerView.Adapter<HomeTipsRe
     public class HomeTipsViewHolder extends RecyclerView.ViewHolder {
         ImageView recommendationImage, shareIcon, downloadIcon;
         TextView newsTitle, newsDescription;
+        MaterialCardView singleHomTipCard;
 
 
         public HomeTipsViewHolder(@NonNull View itemView) {
@@ -82,6 +101,7 @@ public class HomeTipsRecyclerViewAdapter extends RecyclerView.Adapter<HomeTipsRe
             newsTitle = itemView.findViewById(R.id.newsTitle);
             shareIcon = itemView.findViewById(R.id.share);
             downloadIcon = itemView.findViewById(R.id.downloadNews);
+            singleHomTipCard = itemView.findViewById(R.id.singleHomeCard);
 
         }
 
