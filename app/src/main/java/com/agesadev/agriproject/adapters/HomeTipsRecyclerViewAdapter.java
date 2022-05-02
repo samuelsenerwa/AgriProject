@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,15 +68,22 @@ public class HomeTipsRecyclerViewAdapter extends RecyclerView.Adapter<HomeTipsRe
             public void onClick(View v) {
                 Toast.makeText(context, tipsModel.getTitle(), Toast.LENGTH_SHORT).show();
 //              display the bottom sheet dialog with url to open the webview
-                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
-                View view = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_tips_layout, null);
-                WebView homeWebView = view.findViewById(R.id.tipsWebView);
-                homeWebView.loadUrl(tipsModel.getLink());
-                bottomSheetDialog.setContentView(view);
-                bottomSheetDialog.show();
+                displayFullArticle(tipsModel);
 
             }
         });
+    }
+
+    private void displayFullArticle(TipsModel tipsModel) {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
+        View view = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_tips_layout, null);
+
+        WebView homeWebView = view.findViewById(R.id.tipsWebView);
+        homeWebView.loadUrl(tipsModel.getLink());
+        WebViewClient client = new WebViewClient();
+
+        bottomSheetDialog.setContentView(view);
+        bottomSheetDialog.show();
     }
 
 
