@@ -20,6 +20,7 @@ import com.agesadev.agriproject.model.TipsModel;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -79,9 +80,16 @@ public class HomeTipsRecyclerViewAdapter extends RecyclerView.Adapter<HomeTipsRe
         View view = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_tips_layout, null);
 
         WebView homeWebView = view.findViewById(R.id.tipsWebView);
+        FloatingActionButton backFloatingActionBtn = view.findViewById(R.id.closeWebView);
         homeWebView.loadUrl(tipsModel.getLink());
         WebViewClient client = new WebViewClient();
-
+        backFloatingActionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomSheetDialog.dismiss();
+            }
+        });
+        homeWebView.setWebViewClient(client);
         bottomSheetDialog.setContentView(view);
         bottomSheetDialog.show();
     }

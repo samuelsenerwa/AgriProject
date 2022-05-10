@@ -2,16 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/homeFragment"
+        android:background="@drawable/bg_search"
         android:icon="@drawable/ic_outline_home_24"
         android:title="Home" />
 
     <item
         android:id="@+id/expertsFragment"
         android:icon="@drawable/experts"
+        android:background="@drawable/bg_search"
         android:title="Experts" />
 
     <item
         android:id="@+id/tipsFragment"
+        android:background="@drawable/bg_search"
         android:icon="@drawable/folder"
         android:title="Tips" />
 </menu>
