@@ -1,16 +1,15 @@
 package com.agesadev.agriproject.model;
 
+import java.util.Objects;
 
-public class TipsModel {
+public class SearchResponse {
     private String author;
     private String image;
     private String link;
     private String text;
     private String title;
 
-
-
-    public TipsModel(String author, String image, String link, String text, String title) {
+    public SearchResponse(String author, String image, String link, String text, String title) {
         this.author = author;
         this.image = image;
         this.link = link;
@@ -60,12 +59,25 @@ public class TipsModel {
 
     @Override
     public String toString() {
-        return "TipsModel{" +
+        return "SearchResponse{" +
                 "author='" + author + '\'' +
                 ", image='" + image + '\'' +
                 ", link='" + link + '\'' +
                 ", text='" + text + '\'' +
                 ", title='" + title + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SearchResponse that = (SearchResponse) o;
+        return Objects.equals(author, that.author) && Objects.equals(image, that.image) && Objects.equals(link, that.link) && Objects.equals(text, that.text) && Objects.equals(title, that.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(author, image, link, text, title);
     }
 }
