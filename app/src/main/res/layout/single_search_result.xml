@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/searchResultsItem"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="3dp"
+    android:padding="3dp">
+
+
+    <TextView
+        android:id="@+id/resultTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:maxLines="2"
+        android:text="Milking parlors across the country are being transformed into labor-saving systems that utilize the latest technology..."
+        android:textColor="#7d9274"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/resultDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Milking parlors across the country are being transformed into labor-saving systems that utilize the latest technology..."
+        android:textColor="#787777"
+        app:layout_constraintEnd_toEndOf="@+id/resultTitle"
+        app:layout_constraintStart_toStartOf="@+id/resultTitle"
+        app:layout_constraintTop_toBottomOf="@+id/resultTitle" />
+</androidx.constraintlayout.widget.ConstraintLayout>
