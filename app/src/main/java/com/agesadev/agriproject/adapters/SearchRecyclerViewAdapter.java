@@ -50,13 +50,11 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putString("urlLink", searchResponse.getLink());
-                Toast.makeText(context, searchResponse.getLink(), Toast.LENGTH_SHORT).show();
-                displayDetailedResult(searchResponse);
+//                Toast.makeText(context, searchResponse.getLink(), Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(view).navigate(R.id.action_searchResults_to_detailedSearchResult, bundle);
+//                displayDetailedResult(searchResponse);
 
 
-
-//
-//                Navigation.findNavController(context).navigate(R.id.action_homeFragment_to_searchResults, bundle
             }
         });
 

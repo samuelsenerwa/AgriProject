@@ -1,20 +1,21 @@
 package com.agesadev.agriproject.model;
 
 public class SearchRequest {
-    private String search;
+    private String data;
 
-    public String getSearch() {
-        return search;
+    public String getData() {
+        return data;
     }
 
-    public void setSearch(String search) {
-        this.search = search;
+    public void setData(String data) {
+        this.data = data;
     }
 
     @Override
     public String toString() {
         return "SearchRequest{" +
-                "search='" + search + '\'' +
+                "data='" + data + '\'' +
                 '}';
     }
+
 }

@@ -35,7 +35,8 @@ public class SearchResults extends Fragment {
     RecyclerView searchRecyclerView;
     ProgressBar loadingSearchResults;
     TextView loadingText;
-    List<SearchResponse> searchResponses;
+    List<SearchRequest> searchResponses;
+    List<SearchResponse> searchResponsesResult;
     SearchRecyclerViewAdapter searchRecyclerViewAdapter;
 
 
@@ -51,7 +52,7 @@ public class SearchResults extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search_results, container, false);
         initializeSearchResultsRecyclerView(view);
         loadingSearchResults = view.findViewById(R.id.progressBarSearch);
-        loadingText = view.findViewById(R.id.loadingText);
+        loadingText = view.findViewById(R.id.loadingTextViewSearch);
 
         //get the query from the search view
         String query = getArguments().getString("query");
@@ -59,14 +60,15 @@ public class SearchResults extends Fragment {
 
         //get the api interface
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-//        getSearchResults(query);
-        displayDummyData();
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.setData(query);
+        getSearchResults(searchRequest);
+//        displayDummyData();
         return view;
     }
 
     private void initializeSearchResultsRecyclerView(View view) {
         searchRecyclerView = view.findViewById(R.id.searchResultsRecyclerView);
-        searchRecyclerViewAdapter = new SearchRecyclerViewAdapter(searchResponses, getContext());
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
     }
 
@@ -75,24 +77,26 @@ public class SearchResults extends Fragment {
         searchResponses.add(new SearchResponse(
                 "Jodi Henke",
                 null,
-                "https://www.agriculture.com/podcast/successful-farming-radio-podcast/goats-on-the-go",
+                "https://www.agriculture.com/family/living-the-country-life/fencing-for-goats",
                 "Goats benefit our lives by eating weeds and brush that we want to get rid of. One goat rental company is taking goat benefits a step further.",
                 "Goats On The Go"
         ));
         searchRecyclerView.setAdapter(new SearchRecyclerViewAdapter(searchResponses, getContext()));
         loadingSearchResults.setVisibility(View.GONE);
+        loadingText.setVisibility(View.GONE);
     }
 
-    private void getSearchResults(String query) {
+    private void getSearchResults(SearchRequest searchRequest) {
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        apiInterface.searchTips(query).enqueue(new Callback<List<SearchResponse>>() {
+        apiInterface.searchTips(searchRequest).enqueue(new Callback<List<SearchResponse>>() {
             @Override
             public void onResponse(Call<List<SearchResponse>> call, Response<List<SearchResponse>> response) {
                 Log.d("TAG", "onLogResponse1: " + searchResponses);
                 if (response.isSuccessful()) {
-                    searchResponses = response.body();
-                    Log.d("TAG", "onLogResponse: " + searchResponses);
-                    Toast.makeText(getContext(), "Successful" + searchResponses, Toast.LENGTH_SHORT).show();
+                    searchResponsesResult = response.body();
+                    searchRecyclerViewAdapter = new SearchRecyclerViewAdapter(searchResponsesResult, getContext());
+                    searchRecyclerView.setAdapter(searchRecyclerViewAdapter);
+                    loadingSearchResults.setVisibility(View.GONE);
                 } else {
                     Toast.makeText(getContext(), "Failed" + response.body(), Toast.LENGTH_SHORT).show();
                 }

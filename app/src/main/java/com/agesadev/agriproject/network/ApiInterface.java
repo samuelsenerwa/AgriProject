@@ -21,8 +21,11 @@ public interface ApiInterface {
 //    @POST("question")
 //    Call<List<SearchResponse>> searchTips(@Body SearchRequest search);
 
-    @POST("question")
-    Call<List<SearchResponse>> searchTips(@Body String search);
+//    @POST("question")
+//    Call<List<SearchResponse>> searchTips(@Body String search);
+
+    @POST("question/")
+    Call<List<SearchResponse>> searchTips(@Body SearchRequest data);
 
     @POST("detail")
     Call<DetailedNews> getDetailedNews(@Body String search);
