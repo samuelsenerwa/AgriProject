@@ -5,7 +5,8 @@ import java.util.Arrays;
 public class DetailedNews {
     private String author;
     private String date;
-    private String[] images;
+    private String[] text;
+    private String image;
     private String title;
 
     public String getAuthor() {
@@ -24,12 +25,20 @@ public class DetailedNews {
         this.date = date;
     }
 
-    public String[] getImages() {
-        return images;
+    public String[] getText() {
+        return text;
     }
 
-    public void setImages(String[] images) {
-        this.images = images;
+    public void setText(String[] text) {
+        this.text = text;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getTitle() {
@@ -45,7 +54,8 @@ public class DetailedNews {
         return "DetailedNews{" +
                 "author='" + author + '\'' +
                 ", date='" + date + '\'' +
-                ", images=" + Arrays.toString(images) +
+                ", text=" + Arrays.toString(text) +
+                ", image='" + image + '\'' +
                 ", title='" + title + '\'' +
                 '}';
     }

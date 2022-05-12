@@ -3,6 +3,7 @@ package com.agesadev.agriproject.adapters;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.agesadev.agriproject.R;
@@ -67,31 +70,11 @@ public class HomeTipsRecyclerViewAdapter extends RecyclerView.Adapter<HomeTipsRe
         holder.singleHomTipCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, tipsModel.getTitle(), Toast.LENGTH_SHORT).show();
-//              display the bottom sheet dialog with url to open the webview
-                displayFullArticle(tipsModel);
-
+                Bundle bundle = new Bundle();
+                bundle.putString("urlLink", tipsModel.getLink());
+                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_detailedSearchResult, bundle);
             }
         });
-    }
-
-    private void displayFullArticle(TipsModel tipsModel) {
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
-        View view = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_tips_layout, null);
-
-        WebView homeWebView = view.findViewById(R.id.tipsWebView);
-        FloatingActionButton backFloatingActionBtn = view.findViewById(R.id.closeWebView);
-        homeWebView.loadUrl(tipsModel.getLink());
-        WebViewClient client = new WebViewClient();
-        backFloatingActionBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bottomSheetDialog.dismiss();
-            }
-        });
-        homeWebView.setWebViewClient(client);
-        bottomSheetDialog.setContentView(view);
-        bottomSheetDialog.show();
     }
 
 

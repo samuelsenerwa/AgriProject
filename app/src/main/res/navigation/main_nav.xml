@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_homeFragment_to_searchResults"
             app:destination="@id/searchResults" />
+        <action
+            android:id="@+id/action_homeFragment_to_detailedSearchResult"
+            app:destination="@id/detailedSearchResult" />
     </fragment>
     <fragment
         android:id="@+id/searchResults"

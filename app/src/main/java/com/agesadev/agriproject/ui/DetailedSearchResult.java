@@ -1,5 +1,7 @@
 package com.agesadev.agriproject.ui;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,6 +19,7 @@ import com.agesadev.agriproject.model.DetailedNews;
 import com.agesadev.agriproject.model.SearchRequest;
 import com.agesadev.agriproject.network.ApiClient;
 import com.agesadev.agriproject.network.ApiInterface;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -29,7 +32,6 @@ public class DetailedSearchResult extends Fragment {
     ApiInterface apiInterface;
     ImageView detailedImageViewItem;
     TextView detailedTextViewItem, detailedTextViewItemDescription;
-    List<DetailedNews> detailedNews;
 
 
     @Override
@@ -61,11 +63,7 @@ public class DetailedSearchResult extends Fragment {
         apiInterface.getDetailedNews(urlLink).enqueue(new Callback<List<DetailedNews>>() {
             @Override
             public void onResponse(Call<List<DetailedNews>> call, Response<List<DetailedNews>> response) {
-                if (response.isSuccessful()) {
-                    Log.d("Detailed", "onResponse: " + response.body());
-                } else {
-                    Toast.makeText(getContext(), "No Results Found", Toast.LENGTH_SHORT).show();
-                }
+                displayDetailedResult(response);
             }
 
             @Override
@@ -76,5 +74,25 @@ public class DetailedSearchResult extends Fragment {
             }
         });
 
+    }
+
+    private void displayDetailedResult(Response<List<DetailedNews>> response) {
+        if (response.isSuccessful()) {
+            DetailedNews detailedNews = response.body().get(0);
+            detailedTextViewItem.setText(detailedNews.getTitle());
+            for (int i = 0; i < detailedNews.getText().length; i++) {
+                detailedTextViewItemDescription.append(detailedNews.getText()[i]);
+            }
+
+            Glide.with(getContext())
+                    .load(detailedNews.getImage())
+                    .transition(withCrossFade())
+                    .placeholder(R.drawable.agi_placeholder)
+                    .into(detailedImageViewItem);
+
+            Log.d("Detailed", "onResponse: " + response.body());
+        } else {
+            Toast.makeText(getContext(), "No Results Found", Toast.LENGTH_SHORT).show();
+        }
     }
 }
