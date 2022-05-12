@@ -1,8 +1,11 @@
 package com.agesadev.agriproject.ui;
 
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,7 +21,6 @@ import com.agesadev.agriproject.R;
 import com.agesadev.agriproject.adapters.SearchRecyclerViewAdapter;
 import com.agesadev.agriproject.model.SearchRequest;
 import com.agesadev.agriproject.model.SearchResponse;
-import com.agesadev.agriproject.model.TipsModel;
 import com.agesadev.agriproject.network.ApiClient;
 import com.agesadev.agriproject.network.ApiInterface;
 
@@ -50,20 +52,19 @@ public class SearchResults extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_search_results, container, false);
+
         initializeSearchResultsRecyclerView(view);
+
         loadingSearchResults = view.findViewById(R.id.progressBarSearch);
         loadingText = view.findViewById(R.id.loadingTextViewSearch);
 
         //get the query from the search view
         String query = getArguments().getString("query");
-        Toast.makeText(view.getContext(), "The query gotten is" + query, Toast.LENGTH_SHORT).show();
 
-        //get the api interface
-        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         SearchRequest searchRequest = new SearchRequest();
         searchRequest.setData(query);
         getSearchResults(searchRequest);
-//        displayDummyData();
+
         return view;
     }
 
@@ -72,37 +73,20 @@ public class SearchResults extends Fragment {
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
     }
 
-    private void displayDummyData() {
-        List<SearchResponse> searchResponses = new ArrayList<>();
-        searchResponses.add(new SearchResponse(
-                "Jodi Henke",
-                null,
-                "https://www.agriculture.com/family/living-the-country-life/fencing-for-goats",
-                "Goats benefit our lives by eating weeds and brush that we want to get rid of. One goat rental company is taking goat benefits a step further.",
-                "Goats On The Go"
-        ));
-        searchRecyclerView.setAdapter(new SearchRecyclerViewAdapter(searchResponses, getContext()));
-        loadingSearchResults.setVisibility(View.GONE);
-        loadingText.setVisibility(View.GONE);
-    }
-
     private void getSearchResults(SearchRequest searchRequest) {
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         apiInterface.searchTips(searchRequest).enqueue(new Callback<List<SearchResponse>>() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onResponse(Call<List<SearchResponse>> call, Response<List<SearchResponse>> response) {
-                Log.d("TAG", "onLogResponse1: " + searchResponses);
                 if (response.isSuccessful()) {
                     searchResponsesResult = response.body();
-                    searchRecyclerViewAdapter = new SearchRecyclerViewAdapter(searchResponsesResult, getContext());
-                    searchRecyclerView.setAdapter(searchRecyclerViewAdapter);
-                    loadingSearchResults.setVisibility(View.GONE);
+                    displaySearchResults();
                 } else {
-                    Toast.makeText(getContext(), "Failed" + response.body(), Toast.LENGTH_SHORT).show();
+                    displayWhenNoResultIsFound(response);
                 }
 
             }
-
             @Override
             public void onFailure(Call<List<SearchResponse>> call, Throwable t) {
                 Log.d("On Error", "onFailure: " + t.getLocalizedMessage());
@@ -110,6 +94,22 @@ public class SearchResults extends Fragment {
             }
         });
 
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void displayWhenNoResultIsFound(Response<List<SearchResponse>> response) {
+        loadingText.setText("No results found");
+        loadingText.setTextSize(25);
+        loadingText.setTextAppearance(R.style.TextView_NoResults);
+        Toast.makeText(getContext(), "Failed" + response.body(), Toast.LENGTH_SHORT).show();
+    }
+
+    private void displaySearchResults() {
+        searchRecyclerViewAdapter = new SearchRecyclerViewAdapter(searchResponsesResult, getContext());
+        searchRecyclerView.setAdapter(searchRecyclerViewAdapter);
+        searchRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        loadingSearchResults.setVisibility(View.GONE);
+        loadingText.setVisibility(View.GONE);
     }
 
 

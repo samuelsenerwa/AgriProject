@@ -7,6 +7,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -98,7 +99,7 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<TipsModel>> call, Response<List<TipsModel>> response) {
                 Log.d("Log Response", "onResponse: " + response.body());
                 //check if response array length is greater than 0
-                if (response.body().size() > 0) {
+                if (response.isSuccessful()) {
                     homeTipsRecommendations = response.body();
                     homeProgressBar.setVisibility(View.GONE);
                     loadingText.setVisibility(View.GONE);
