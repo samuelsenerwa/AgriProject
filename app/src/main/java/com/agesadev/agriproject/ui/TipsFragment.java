@@ -3,64 +3,101 @@ package com.agesadev.agriproject.ui;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.agesadev.agriproject.R;
+import com.agesadev.agriproject.adapters.TipsRecyclerViewAdapter;
+import com.agesadev.agriproject.model.Tips;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TipsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class TipsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public TipsFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TipsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TipsFragment newInstance(String param1, String param2) {
-        TipsFragment fragment = new TipsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    View view;
+    RecyclerView recyclerView;
+    RecyclerView.Adapter adapter;
+    ProgressBar progressBar;
+    RecyclerView.LayoutManager manager;
+    List<Tips> tips = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tips, container, false);
+        View view = inflater.inflate(R.layout.fragment_tips, container, false);
+
+        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        progressBar=view.findViewById(R.id.progressBar);
+        manager = new LinearLayoutManager(getActivity());
+        adapter = new TipsRecyclerViewAdapter(getActivity(), tips);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(adapter);
+
+        Thread thread=new Thread(new Runnable() {
+            Document document;
+            @Override
+            public void run() {
+                try {
+                    document= Jsoup.connect("https://www.goatfarming.in/goat-farming-questions-answers").get();
+
+                    Element div=document.getElementsByClass("tdb-block-inner td-fix-index").get(6);
+                    Elements children = div.children();
+
+                    for (Element element:children){
+                        String data= element.text();
+                        String quiz=element.getElementsByTag("span").text();
+                        String answer = element.getElementsByTag("p").text();
+                        Tips tip = new Tips(quiz,answer);
+                        tips.add(tip);
+
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if(tips!=null){
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            adapter.notifyDataSetChanged();
+                            Toast.makeText(getContext(), tips.toString(), Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
+                            progressBar.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in));
+
+                        }
+                    });
+
+                }
+
+
+
+
+            }
+        }); thread.start();
+
+
+        return view;
     }
 }

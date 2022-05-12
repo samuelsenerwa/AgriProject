@@ -1,77 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardPreventCornerOverlap="true"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="15dp"
-    app:cardMaxElevation="20dp"
-    android:layout_margin="10dp">
+    android:layout_height="match_parent"
+    tools:context=".ui.TipsFragment">
 
-    <RelativeLayout
+    <!--TextView and Button displayed in Second Fragment -->
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:layout_marginTop="100dp"-->
+    <!--        android:text="This is Second Fragment"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:textSize="25sp" />-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content" >
+    </androidx.recyclerview.widget.RecyclerView>
 
-        <ImageView
-            android:id="@+id/imageview"
-            android:layout_width="match_parent"
-            android:layout_height="270dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/goat2" />
+    <!--    <Button-->
+    <!--        android:id="@+id/secondButton"-->
+    <!--        android:layout_width="fill_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_centerInParent="true"-->
+    <!--        android:layout_marginLeft="20dp"-->
+    <!--        android:layout_marginRight="20dp"-->
+    <!--        android:background="@color/green"-->
+    <!--        android:text="Second Fragment"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        android:textSize="20sp"-->
+    <!--        android:textStyle="bold" />-->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/imageview"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="sans-serif-black"
-            android:paddingBottom="5dp"
-            android:text="@string/title"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/title"
-            android:layout_marginTop="0dp"
-            android:paddingLeft="2dp"
-            android:paddingBottom="10dp"
-            android:text="@string/content"
-            android:textAlignment="textStart"
-            />
-
-        <ImageView
-            android:id="@+id/share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="0dp"
-            android:paddingTop="4dp"
-            android:paddingRight="5dp"
-            android:src="@drawable/ic_baseline_share_24" />
-
-        <ImageView
-            android:id="@+id/download"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/content"
-            android:layout_alignParentEnd="true"
-            android:layout_toLeftOf="@id/share"
-            android:paddingRight="35dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="0dp"
-            android:paddingTop="4dp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_baseline_cloud_download_24" />
-
-    </RelativeLayout>
-
-</androidx.cardview.widget.CardView>
+</RelativeLayout>
