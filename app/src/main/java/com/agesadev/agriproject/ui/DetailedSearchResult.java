@@ -14,8 +14,11 @@ import android.widget.Toast;
 
 import com.agesadev.agriproject.R;
 import com.agesadev.agriproject.model.DetailedNews;
+import com.agesadev.agriproject.model.SearchRequest;
 import com.agesadev.agriproject.network.ApiClient;
 import com.agesadev.agriproject.network.ApiInterface;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +29,7 @@ public class DetailedSearchResult extends Fragment {
     ApiInterface apiInterface;
     ImageView detailedImageViewItem;
     TextView detailedTextViewItem, detailedTextViewItemDescription;
+    List<DetailedNews> detailedNews;
 
 
     @Override
@@ -44,27 +48,33 @@ public class DetailedSearchResult extends Fragment {
         detailedTextViewItemDescription = view.findViewById(R.id.fullNewsArticle);
         Bundle bundle = getArguments();
         String search = bundle.getString("urlLink");
-        Toast.makeText(view.getContext(), "The url link is " + search, Toast.LENGTH_SHORT).show();
-        getDetailedSearchResult(search);
-
+        Toast.makeText(view.getContext(), "The url at detailed is  " + search, Toast.LENGTH_SHORT).show();
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.setData(search);
+        getDetailedSearchResult(searchRequest);
 
         return view;
     }
 
-    private void getDetailedSearchResult(String urlLink) {
+    private void getDetailedSearchResult(SearchRequest urlLink) {
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<DetailedNews> call = apiInterface.getDetailedNews(urlLink);
-        call.enqueue(new Callback<DetailedNews>() {
+        apiInterface.getDetailedNews(urlLink).enqueue(new Callback<List<DetailedNews>>() {
             @Override
-            public void onResponse(Call<DetailedNews> call, Response<DetailedNews> response) {
-                Log.d("onDetailed", "More details is : " + response.body());
-                Toast.makeText(getContext(), "The data is " + response.body(), Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<List<DetailedNews>> call, Response<List<DetailedNews>> response) {
+                if (response.isSuccessful()) {
+                    Log.d("Detailed", "onResponse: " + response.body());
+                } else {
+                    Toast.makeText(getContext(), "No Results Found", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
-            public void onFailure(Call<DetailedNews> call, Throwable t) {
-                Toast.makeText(getContext(), "An Error Occurred", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<List<DetailedNews>> call, Throwable t) {
+                Toast.makeText(getContext(), "An Error Occurred" + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("Detailed", "onFailure: " + t.getLocalizedMessage());
+
             }
         });
+
     }
 }
