@@ -1,5 +1,6 @@
 package com.agesadev.agriproject.ui;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -55,49 +56,65 @@ public class TipsFragment extends Fragment {
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
 
-        Thread thread=new Thread(new Runnable() {
-            Document document;
-            @Override
-            public void run() {
-                try {
-                    document= Jsoup.connect("https://www.goatfarming.in/goat-farming-questions-answers").get();
 
-                    Element div=document.getElementsByClass("tdb-block-inner td-fix-index").get(6);
-                    Elements children = div.children();
-
-                    for (Element element:children){
-                        String data= element.text();
-                        String quiz=element.getElementsByTag("span").text();
-                        String answer = element.getElementsByTag("p").text();
-                        Tips tip = new Tips(quiz,answer);
-                        tips.add(tip);
-
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if(tips!=null){
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            adapter.notifyDataSetChanged();
-                            Toast.makeText(getContext(), tips.toString(), Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
-                            progressBar.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in));
-
-                        }
-                    });
-
-                }
+        get getting = (get) new get().execute();
 
 
-
-
-            }
-        }); thread.start();
 
 
         return view;
     }
+
+
+    public class get extends AsyncTask {
+        Document document;
+
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            try {
+                document= Jsoup.connect("https://www.goatfarming.in/goat-farming-questions-answers").get();
+
+                Element div=document.getElementsByClass("tdb-block-inner td-fix-index").get(6);
+                Elements children = div.children();
+                for (Element element:children){
+                    Tips tip = new Tips(element.getElementsByTag("h3").text(),element.getElementsByTag("p").text());
+                    tips.add(tip);
+
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return tips;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            if(o!=null){
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Object[] values) {
+            super.onProgressUpdate(values);
+        }
+    }
+
+
+
 }

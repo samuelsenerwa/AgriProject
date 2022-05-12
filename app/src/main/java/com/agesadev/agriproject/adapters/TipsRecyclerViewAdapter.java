@@ -33,7 +33,7 @@ public class TipsRecyclerViewAdapter extends RecyclerView.Adapter<TipsRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull TipsRecyclerViewAdapter.Myview holder, int position) {
         holder.title.setText(tips.get(position).getName());
-        holder.description.setText(tips.get(position).getDescription());
+        holder.description.setText(tips.get(position+1).getDescription());
     }
 
     @Override
