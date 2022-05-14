@@ -12,9 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
-import com.agesadev.agriproject.ExpertAdapter;
-import com.agesadev.agriproject.Experts;
+import com.agesadev.agriproject.adapters.ExpertAdapter;
+import com.agesadev.agriproject.model.Experts;
 import com.agesadev.agriproject.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,10 +30,10 @@ import java.util.ArrayList;
 public class ExpertsFragment extends Fragment {
 
     DatabaseReference databaseReference;
-    RecyclerView recyclerView;
+    RecyclerView expertsRecyclerView;
     RecyclerView.Adapter rAdapter;
     ArrayList<Experts> arrayList = new ArrayList<>();
-    ArrayAdapter<Experts> arrayAdapter;
+//    ArrayAdapter<Experts> arrayAdapter;
     Experts experts;
 
 
@@ -43,41 +44,27 @@ public class ExpertsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_experts, container, false);
+        expertsRecyclerView = view.findViewById(R.id.expertList);
+        expertsRecyclerView.setHasFixedSize(true);
 
-        recyclerView = view.findViewById(R.id.eList);
-        recyclerView.setHasFixedSize(true);
         databaseReference = FirebaseDatabase.getInstance().getReference("Experts");
-
-
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    Object eName = ds.child("eName").getValue();
-                    Object contact = ds.child("contact").getValue();
-                    Object region = ds.child("region").getValue();
-                    Experts experts = new Experts(eName.toString(), region.toString(), contact.toString());
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    experts = dataSnapshot.getValue(Experts.class);
                     arrayList.add(experts);
-
                 }
-
-                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
-                dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider));
-                recyclerView.addItemDecoration(dividerItemDecoration);
-
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                rAdapter = new ExpertAdapter(arrayList, getActivity());
-                recyclerView.setAdapter(rAdapter);
-
+                rAdapter = new ExpertAdapter(arrayList, getContext());
+                expertsRecyclerView.setAdapter(rAdapter);
+                expertsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Error" + error.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
