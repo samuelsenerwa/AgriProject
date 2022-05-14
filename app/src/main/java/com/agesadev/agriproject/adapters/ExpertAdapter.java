@@ -1,6 +1,7 @@
 package com.agesadev.agriproject.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,13 +43,25 @@ public class ExpertAdapter extends RecyclerView.Adapter<ExpertAdapter.ExpertsVie
         holder.imageEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Email sent", Toast.LENGTH_SHORT).show();
+                String email = experts.getEmail();
+                Toast.makeText(context, email, Toast.LENGTH_SHORT).show();
+                //launch email app
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("text/plain");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
+                context.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+
             }
         });
         holder.phoneImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Phone call made", Toast.LENGTH_SHORT).show();
+                String phone = experts.getContactPhone();
+                Toast.makeText(context, phone, Toast.LENGTH_SHORT).show();
+                //launch phone app
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(android.net.Uri.parse("tel:" + phone));
+                context.startActivity(intent);
             }
         });
     }

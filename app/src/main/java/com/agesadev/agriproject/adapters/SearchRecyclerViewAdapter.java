@@ -60,29 +60,6 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
     }
 
 
-
-    private void displayDetailedResult(SearchResponse searchResponse) {
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
-        View bottomSheetView = LayoutInflater.from(context).inflate(R.layout.single_item_result, null);
-        TextView detailedNewsTitle = bottomSheetView.findViewById(R.id.singleResultTitle);
-        TextView detailedNewsDescription = bottomSheetView.findViewById(R.id.fullNewsArticle);
-        ImageView detailedNewsImage = bottomSheetView.findViewById(R.id.resultImage);
-        Glide.with(context)
-                .load(searchResponses.get(0).getImage())
-                .transition(withCrossFade())
-                .placeholder(R.drawable.agi_placeholder)
-                .into(detailedNewsImage);
-        detailedNewsTitle.setText(searchResponse.getTitle());
-        detailedNewsDescription.setText(searchResponse.getText());
-        bottomSheetDialog.setContentView(bottomSheetView);
-        bottomSheetDialog.show();
-    }
-
-    public void displayArticle() {
-
-
-    }
-
     @Override
     public int getItemCount() {
         return searchResponses.size();
