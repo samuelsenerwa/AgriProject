@@ -54,7 +54,6 @@ public class ExpertsFragment extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference("Experts");
 
 
-
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -62,12 +61,12 @@ public class ExpertsFragment extends Fragment {
                     Object eName = ds.child("eName").getValue();
                     Object contact = ds.child("contact").getValue();
                     Object region = ds.child("region").getValue();
-                    Experts experts=new Experts(eName.toString(),region.toString(),contact.toString());
+                    Experts experts = new Experts(eName.toString(), region.toString(), contact.toString());
                     arrayList.add(experts);
 
                 }
 
-                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL);
+                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
                 dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider));
                 recyclerView.addItemDecoration(dividerItemDecoration);
 
