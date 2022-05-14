@@ -26,12 +26,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:fontFamily="sans-serif-black"
+                android:ellipsize="end"
+                android:fontFamily="@font/roboto_mono_bold"
                 android:paddingBottom="5dp"
                 android:text="@string/title"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -40,6 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/title"
                 android:layout_marginTop="0dp"
+                android:fontFamily="@font/roboto_mono"
+                android:ellipsize="end"
                 android:paddingLeft="2dp"
                 android:paddingBottom="10dp"
                 android:text="@string/content"
