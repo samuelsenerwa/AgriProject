@@ -3,6 +3,9 @@
     package="com.agesadev.agriproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <permission android:name="android.permission.CALL_PHONE"></permission>
+    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,7 +17,7 @@ public class ExpertAdapter extends RecyclerView.Adapter<ExpertAdapter.viewHolder
     ArrayList<Experts> arrayList;
     Context context;
 
-    public ExpertAdapter(ArrayList<Experts> arrayList,Context context){
+    public ExpertAdapter(ArrayList<Experts> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context = context;
     }
@@ -25,7 +26,7 @@ public class ExpertAdapter extends RecyclerView.Adapter<ExpertAdapter.viewHolder
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_view,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_expert, parent, false);
         return new viewHolder(view);
     }
 
@@ -46,13 +47,17 @@ public class ExpertAdapter extends RecyclerView.Adapter<ExpertAdapter.viewHolder
 
     public class viewHolder extends RecyclerView.ViewHolder {
 
-        TextView eName,region,contact;
+        TextView eName, region, contact;
+        ImageView phoneImage,imageEmail;
+
         public viewHolder(@NonNull View itemView) {
             super(itemView);
 
             eName = itemView.findViewById(R.id.eName);
-            region = itemView.findViewById(R.id.region);
+//            region = itemView.findViewById(R.id.region);
             contact = itemView.findViewById(R.id.eContact);
+            phoneImage=itemView.findViewById(R.id.phoneImage);
+            imageEmail=itemView.findViewById(R.id.imageEmail);
 
         }
     }
